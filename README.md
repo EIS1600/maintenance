@@ -1,2 +1,5 @@
 # maintenance
-Scripts for maintaining files and data of the project
+
+Scripts for maintaining files and data of the project.
+
+

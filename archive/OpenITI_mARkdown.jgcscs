@@ -1,0 +1,565 @@
+﻿JGCSCS
+5
+OpenITI mARkdown
+
+Maxim Romanov
+maxim.romanov@univie.ac.at
+http://alraqmiyyat.github.io/
+
+TRUE
+
+
+7
+This is a highlighting scheme designed to tag texts (structurally, morphologically and semantically) in the corpus of the OpenITI project.
+OpenITI is a multiinstitutional academic endeavor to create a machine-readable corpus of Islamicate texts (i.e., texts in languages that were spoken have been spoken in the Islamic world by both Muslims and non-Muslims).
+
+The corpus is available at: http://github.com/OpenITI/
+The detailed description of the scheme is available at: http://alraqmiyyat.github.io/mARkdown/
+
+The scheme is activated by the following magic value: `#####OpenITI#` 
+0
+0
+FALSE
+27
+META, MagicValue
+Meta on edition, volumes, also, author's introductions, conclusions, and other volume related comments, Magic Value
+^######OpenITI#|^#META#Header#End#|^#META# .*|\bREF\d{10}\b|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+20
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Editorial section
+Editorial sections that must be excluded from text analysis; also passages that do not fit into the structure of the book
+^(###|###\$\w+\$#) \|(EDITOR|SKIP)\||^# \|SKIP\| |TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+26
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Heading I
+Header I
+^(###|###\$\w+\$#) \| .*|#TEMPORARY ELEMENTS AFTER THIS#|Open Tagging Pattern: false, reviewed|@[A-Z]{3}@[A-Z]{3,}@[A-Za-z]+@-@fr@
+FALSE
+FALSE
+3
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Heading II
+Strong
+^(###|###\$\w+\$#) \|\| .*|TEMPORARY ELEMENTS AFTER THIS|Open Tagging Pattern: false, not reviewed|@[A-Z]{3}@[A-Z]{3,}@[A-Za-z]+@-@f[fam]@
+FALSE
+FALSE
+4
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Heading III
+Strong emphasis
+^(###|###\$\w+\$#) \|\|\| .*|TEMPORARY ELEMENTS AFTER THIS|Open Tagging Pattern: true, not reviewed|@[A-Z]{3}@[A-Z]{3,}@[A-Za-z]+@-@t[tam]@
+FALSE
+FALSE
+5
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Heading IIII
+Markup tag
+^(###|###\$\w+\$#) \|\|\|\| .*|TEMPORARY ELEMENTS AFTER THIS|Open Tagging Pattern: true, reviewed|@[A-Z]{3}@[A-Z]{3,}@General+@-@tr@
+FALSE
+FALSE
+6
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Heading IIIII+
+Markup tag attribute
+^(###|###\$\w+\$#) \|\|\|\|\|+ .*|TEMPORARY ELEMENTS AFTER THIS|Open Tagging Pattern: true, reviewed, classified|@[A-Z]{3}@[A-Z]{3,}@[A-Za-z]+@-@tr@
+FALSE
+FALSE
+7
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Major Units: Men Bio
+Major categories: Biographies (of men), Dictionary Entries (Toponyms, Nisbas, Lexical items)
+^(###|###\$\w+\$#) (\$(BIO_MAN|DIC_TOP|DIC_NIS|DIC_LEX|DIC_BIB|DOX_POS)\$|\$ )|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+15
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Major Units: Women Bio
+Major categories: Biographies (of Women); Hadith/Riwayat
+^(###|###\$\w+\$#) (\$(BIO_WOM|DOX_SEC)\$|\$\$ )|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+16
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Major Units: Biography repeated
+Major categories: Biographies, Descriptions of Events, Fillers, Lists, Dictionary Items
+^(###|###\$\w+\$#) (\$(BIO_REP)\$|\$\$\$ )|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+20
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Major Units: Name Lists
+Major categories: Biographies, Descriptions of Events, Fillers, Lists, Dictionary Items
+^(###|###\$\w+\$#) (\$(BIO_NLI)\$|\$\$\$\$ )|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+18
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Events
+Description of events in Chronicles; Geographical Literature Patterns
+^(###|###\$\w+\$#) (@ (RAW)?|\$(CHR_EVE|CHR_RAW)\$)|@@GEOGRAPHY@@|#\$#(PROV .*? #\$#TYPE .*? #\$#REG[1X]|REG[1X] .*? #\$#TYPE .*? #\$#REG[2X]|REG2 .*? #\$#TYPE .*? #\$#REG3|REG3 .*? #\$#TYPE .*? #\$#REG4|REG4 .*? #\$#TYPE .*? #\$#REG5|REG5 .*? #\$#TYPE .*? #\$#REG6|REG\d .*? #\$#TYPE .*? #\$#STTL)[\w# ]+ $|#\$#FROM .*? #\$#TOWA .*? #\$#DIST .* $
+FALSE
+FALSE
+19
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Annotations
+Comments; Entities preservation
+^#COMMENT# .*|^#ENTITIES# .*
+FALSE
+FALSE
+26
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Paragraphs
+Paragraphs; RWY Pattern
+^# \$RWY\$ |^# |\bMilestone300\b|\bms\d+\b|StartingPageV\d\dP\d{3,4}|\bPageBegV\d\dP\d\d\d(\d)?\b|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+11
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+In-text Elements
+Page Numbers, Sub-lines, Hemistich Dividers
+^~~|PageV..P\d\d\d(\d)?|%~%|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+22
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Dividing tags
+E.g., splitting Isnad/Matn in Riwayat; Hukm; Year Data (Birth, Death, Age, Misc)
+ @MATN@ | @HUKM@ | YEAR TAGS |@Y[ABD]\d+\b|\bPageEndV\d\dP\d\d\d(\d)?\b|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+29
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Meta Data
+
+^(###|#\$#\d{6}-\d{3}#|#\$#\d{4}\w+\.\w+\.[a-zA-Z]+\d+\.\d+-\d+#DIV#) ?#META#.*
+FALSE
+FALSE
+28
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Ignore Elements
+Ignore elements; residual elements 
+~!~[^~]+~!!~|NoteV..P\d\d\dN\d\d|Page(Wrong|Start)V..P\d\d\d(\d)?|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+17
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Auto Tagged Named Entities
+Automatically tagged NE - TOPonyms, SOCials, PERsonalia; Raw Morphological Tags
+@(TOP|SOC|PER|BOK|SOURCE)\d1[ ~\n]+\w+|@(TOP|SOC|PER|BOK|SOURCE)\d2[ ~\n]+\w+[ ~\n]+\w+|@(TOP|SOC|PER|BOK|SOURCE)\d3[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@(TOP|SOC|PER|BOK|SOURCE)\d4[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@(TOP|SOC|PER|BOK|SOURCE)\d5[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@(TOP|SOC|PER|BOK|SOURCE)\d6[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@YY\d+\b|^#~:undefined:|^# \$Unit(BEG|END):undefined\$|TEMPORARY ELEMENTS AFTER THIS|Open Tagging Pattern: unknown|@[A-Z]{3}@[A-Z]{3,}@[A-Za-z]+@-@00@
+FALSE
+FALSE
+42
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Morphological elements
+Morphological elements of logical units in serial texts; logical units in non-serial texts
+^#~:[\w/]+:|TEMPORARY ELEMENTS AFTER THIS
+FALSE
+FALSE
+35
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Toponym
+Manually Disambiguated NE - Toponym; URIs from Althurayya
+@T\d1[ ~\n]+\w+|@T\d2[ ~\n]+\w+[ ~\n]+\w+|@T\d3[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@T\d4[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|\b(\w+@)?[A-Z]+_\d\d\d[EWNS]\d\d\d[EWNS]_[A-Z]\b|\b(\w+@)?[A-Z][a-z]+_RE\b
+FALSE
+FALSE
+41
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Social/Nisba
+Manually Disambiguated NE - Social/Biographical Descriptor
+@S\d1[ ~\n]+\w+|@S\d2[ ~\n]+\w+[ ~\n]+\w+|@S\d3[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@S\d4[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+
+FALSE
+FALSE
+34
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Book titles
+Book titles tagged; Book URIs
+@B\d1[ ~\n]+\w+|@B\d2[ ~\n]+\w+[ ~\n]+\w+|@B\d3[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@B\d4[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|\b(\d{4}[A-Za-z]+\.[A-Za-z]+)\b
+FALSE
+FALSE
+38
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Person
+Manually Disambiguated NE - Person
+@P\d1[ ~\n]+\w+|@P\d2[ ~\n]+\w+[ ~\n]+\w+|@P\d3[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@P\d4[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@P\d5[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@P\d6[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@P\d7[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+
+FALSE
+FALSE
+39
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Sources
+Sources: Qala Fulan b. Fulan
+@SRC\d1[ ~\n]+\w+|@SRC\d2[ ~\n]+\w+[ ~\n]+\w+|@SRC\d3[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@SRC\d4[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@SRC\d5[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+|@SRC\d6[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+[ ~\n]+\w+
+FALSE
+FALSE
+33
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Punctuation
+
+MOVED_TO_THE_NEXT_ONE[?،:؟,’؛]
+FALSE
+FALSE
+13
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+Special Characters
+Probable Structural Information, Or Junk
+[-'"~!@$%^&()_+<>/\\|/÷×<>{}\]\[«»]|(\*)|(#|\d)|\.|[?،:؟,’؛]
+FALSE
+FALSE
+8
+0
+
+
+0
+FALSE
+FALSE
+FALSE
+FALSE
+
+
+
+
+FALSE
+
+0
+0
