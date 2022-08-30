@@ -4,7 +4,8 @@ import re
 UID = r'#?\$(?P<UID>\d{12})\$#?\s'
 UID_PATTERN = re.compile(UID)
 HEADING_PATTERN = re.compile(UID + r'(?P<level>\|{1,4})')
-MUI_PATTERN = re.compile(UID + r'\$(?P<entry_type>(?P<type>[A-Z]{3})_(?P<cat>[A-Z]{3}))\$')
+MUI_PATTERN = re.compile(UID + r'\$')
+# We are not interested in subunits
 SUBUNIT_PATTERN = re.compile(UID + r'::(?:(?P<type>[A-Z]+)::\s)+')
 
 NODE = '├── '
@@ -33,14 +34,17 @@ def set_level(level):
 
 def split_text(eis_file, ids_file):
     level = 1
-    with open(eis_file, 'r') as text:
+    with open(eis_file, 'r', encoding='utf8') as text:
         with open(ids_file, 'w', encoding='utf8') as ids_tree:
             for text_line in text:
                 if UID_PATTERN.match(text_line):
+                    ids_tree.write(UID_PATTERN.match(text_line).group('UID') + '\n')
+                    '''' Code to preserve hierarchy WIP
+                    
                     outline = ''
                     if HEADING_PATTERN.match(text_line):
                         m = HEADING_PATTERN.match(text_line)
-                        level = len(m.group('level'))
+                        level = len(m.group('level')) - 1
 
                         outline = set_level(level)
                         outline += m.group('UID') + '\n'
@@ -56,7 +60,7 @@ def split_text(eis_file, ids_file):
                         outline += m.group('UID') + '\n'
 
                     if outline:
-                        ids_tree.write(outline)
+                        ids_tree.write(outline)'''
 
 
 if __name__ == '__main__':
