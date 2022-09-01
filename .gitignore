@@ -1,2 +1,4 @@
 # Ignore iOS files
 .DS_Store
+
+__pycache__/

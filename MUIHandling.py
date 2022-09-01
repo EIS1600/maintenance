@@ -1,71 +1,64 @@
 import re
+from pathlib import Path
 
-
-UID = r'#?\$(?P<UID>\d{12})\$#?\s'
+UID = r'#\$(?P<UID>\d{12})\$#?\s'
 UID_PATTERN = re.compile(UID)
-HEADING_PATTERN = re.compile(UID + r'(?P<level>\|{1,4})')
-MUI_PATTERN = re.compile(UID + r'\$')
-# We are not interested in subunits
-SUBUNIT_PATTERN = re.compile(UID + r'::(?:(?P<type>[A-Z]+)::\s)+')
-
-NODE = '├── '
-END = '└── '
-TAB = '│   '
+HEADER_END_PATTERN = re.compile(r'#META#Header#End#')
 
 
-# class State:
-#     def __init__(self, level_1, level_2, level_3, level_4, mui, subunit):
-#         self.level_1 = level_1
-#         self.level_2 = level_2
-#         self.level_3 = level_3
-#         self.level_4 = level_4
-#         self.mui = mui
-#         self.subunit = subunit
+def create_yml_header():
+    # TODO
+    pass
 
 
-def set_level(level):
-    outline = ''
-    while level > 0:
-        outline += TAB
-        level -= 1
-
-    return outline + NODE
+def reassamble_text():
+    # TODO
+    pass
 
 
-def split_text(eis_file, ids_file):
-    level = 1
+def extract_yml_data():
+    # TODO
+    # path = 'yml_data.yml'
+    pass
+
+
+def update_yml_header():
+    # TODO
+    pass
+
+
+def split_text(file_path):
+    eis_file = file_path + '.EIS1600'
+    ids_file = file_path + '.IDs'
+    mui_dir = Path(file_path + '/')
+    uid = ''
+    mui_text = ''
+
+    mui_dir.mkdir(exist_ok=True)
+
     with open(eis_file, 'r', encoding='utf8') as text:
         with open(ids_file, 'w', encoding='utf8') as ids_tree:
             for text_line in text:
-                if UID_PATTERN.match(text_line):
-                    ids_tree.write(UID_PATTERN.match(text_line).group('UID') + '\n')
-                    '''' Code to preserve hierarchy WIP
-                    
-                    outline = ''
-                    if HEADING_PATTERN.match(text_line):
-                        m = HEADING_PATTERN.match(text_line)
-                        level = len(m.group('level')) - 1
-
-                        outline = set_level(level)
-                        outline += m.group('UID') + '\n'
-                    elif MUI_PATTERN.match(text_line):
-                        m = MUI_PATTERN.match(text_line)
-
-                        outline = set_level(level + 1)
-                        outline += m.group('UID') + '\n'
-                    elif SUBUNIT_PATTERN.match(text_line):
-                        m = SUBUNIT_PATTERN.match(text_line)
-
-                        outline = set_level(level + 2)
-                        outline += m.group('UID') + '\n'
-
-                    if outline:
-                        ids_tree.write(outline)'''
+                if HEADER_END_PATTERN.match(text_line):
+                    uid = 'header'
+                    mui_text += text_line
+                    with open(mui_dir.__str__() + '/' + uid + '.mui', 'w', encoding='utf8') as mui_file:
+                        mui_file.write(mui_text + '\n')
+                    mui_text = ''
+                    uid = 'preface'
+                    text_line = next(text)  # Empty line after header is added in the header.mui -> skip this line
+                elif UID_PATTERN.match(text_line):
+                    with open(mui_dir.__str__() + '/' + uid + '.mui', 'w', encoding='utf8') as mui_file:
+                        mui_file.write(mui_text)
+                    uid = UID_PATTERN.match(text_line).group('UID')
+                    ids_tree.write(uid + '\n')
+                    mui_text = text_line
+                else:
+                    mui_text += text_line
 
 
 if __name__ == '__main__':
-    text_path = 'texts_EIS1600/0795IbnRajabHanbali.DhaylTabaqatHanabila.Shamela0031366-ara1.EIS1600'
-    ids_file_path = 'texts_EIS1600/0795IbnRajabHanbali.DhaylTabaqatHanabila.Shamela0031366-ara1.IDs'
+    path = 'texts_EIS1600/0795IbnRajabHanbali.DhaylTabaqatHanabila.Shamela0031366-ara1'
 
-    split_text(text_path, ids_file_path)
+    split_text(path)
 
