@@ -1,0 +1,37 @@
+from pathlib import Path
+
+from MUI_Handling.yml_handling import create_yml_header
+from MUI_Handling.re_patterns import HEADER_END_PATTERN, UID_PATTERN
+
+
+def disassemble_text(file_path, uri):
+    eis_file = file_path + '.EIS1600'
+    ids_file = file_path + '.IDs'
+    mui_dir = Path(file_path + '/')
+    uid = ''
+    mui_text = ''
+
+    mui_dir.mkdir(exist_ok=True)
+    mui_uri = mui_dir.__str__() + '/' + uri + '.'
+
+    with open(eis_file, 'r', encoding='utf8') as text:
+        with open(ids_file, 'w', encoding='utf8') as ids_tree:
+            for text_line in text:
+                if HEADER_END_PATTERN.match(text_line):
+                    uid = 'header'
+                    mui_text += text_line
+                    with open(mui_uri + uid + '.EIS1600', 'w', encoding='utf8') as mui_file:
+                        mui_file.write(mui_text + '\n')
+                    mui_text = ''
+                    uid = 'preface'
+                    text_line = next(text)  # Empty line after header is added in the header.mui -> skip this line
+                elif UID_PATTERN.match(text_line):
+                    with open(mui_uri + uid + '.EIS1600', 'w', encoding='utf8') as mui_file:
+                        mui_file.write(mui_text)
+                    uid = UID_PATTERN.match(text_line).group('UID')
+                    ids_tree.write(uid + '\n')
+                    mui_text = text_line
+                    mui_text += create_yml_header()
+                else:
+                    mui_text += text_line
+
