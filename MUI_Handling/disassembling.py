@@ -16,7 +16,7 @@ def disassemble_text(file_path, uri):
 
     with open(eis_file, 'r', encoding='utf8') as text:
         with open(ids_file, 'w', encoding='utf8') as ids_tree:
-            for text_line in text:
+            for text_line in iter(text):
                 if HEADER_END_PATTERN.match(text_line):
                     uid = 'header'
                     mui_text += text_line
@@ -34,4 +34,5 @@ def disassemble_text(file_path, uri):
                     mui_text += create_yml_header()
                 else:
                     mui_text += text_line
-
+            with open(mui_uri + uid + '.EIS1600', 'w', encoding='utf8') as mui_file:
+                mui_file.write(mui_text)

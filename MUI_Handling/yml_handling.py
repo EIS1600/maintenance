@@ -1,24 +1,35 @@
-from MUI_Handling.re_patterns import MUI_HEADER_PATTERN
+from MUI_Handling.re_patterns import MUI_HEADER_PATTERN, MUI_NEWLINE_PATTERN
+import importlib.resources as pkg_resources
+
+
+yml_template = pkg_resources.read_text(__package__, 'template.yml')
 
 
 def create_yml_header():
-    with open('template.yml', 'r', encoding='utf-8') as yml_template:
-        yml_header = yml_template.read()
+    yml_header = yml_template
     # TODO: populate template with MUI related information
-    return '\n\n' + yml_header + '\n'
+    return '\n' + yml_header
 
 
-def extract_yml_data(mui_file):
+def extract_yml_header_and_text(mui_file, mui_id, is_header):
     with open(mui_file, 'r', encoding='utf-8') as file:
-        for line in file:
+        text = ''
+        mui_yml_header = ''
+        for line in iter(file):
             if MUI_HEADER_PATTERN.match(line):
-                mui_yml_header = line
+                # Omit this line as it is only needed inside the MUI.EIS1600 file, but not in yml_data.yml
+                next(file)
                 line = next(file)
+                mui_yml_header = '#' + mui_id + '\n---\n'
                 while not MUI_HEADER_PATTERN.match(line):
                     mui_yml_header += line
                     line = next(file)
-                mui_yml_header += line
-                return mui_yml_header
+            else:
+                text += line
+            # Replace new lines which separate YAML header from text
+            if not is_header:
+                text, n = MUI_NEWLINE_PATTERN.subn('\n\n', text)
+        return mui_yml_header, text
 
 
 def update_yml_header():
