@@ -24,15 +24,16 @@ def disassemble_text(file_path, uri):
                         mui_file.write(mui_text + '\n')
                     mui_text = ''
                     uid = 'preface'
-                    text_line = next(text)  # Empty line after header is added in the header.mui -> skip this line
+                    next(text)  # Skip empty line after header
                 elif UID_PATTERN.match(text_line):
                     with open(mui_uri + uid + '.EIS1600', 'w', encoding='utf8') as mui_file:
                         mui_file.write(mui_text)
                     uid = UID_PATTERN.match(text_line).group('UID')
                     ids_tree.write(uid + '\n')
-                    mui_text = text_line
-                    mui_text += create_yml_header()
+                    mui_text = create_yml_header()
+                    mui_text += text_line
                 else:
                     mui_text += text_line
+            # last MUI needs to be written to file when the for-loop is finished
             with open(mui_uri + uid + '.EIS1600', 'w', encoding='utf8') as mui_file:
                 mui_file.write(mui_text)

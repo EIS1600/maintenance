@@ -6,6 +6,5 @@ if __name__ == '__main__':
     uri = '0795IbnRajabHanbali.DhaylTabaqatHanabila.Shamela0031366-ara1'
     path = 'texts_EIS1600/' + uri
 
-    # disassemble_text(path, uri)
+    disassemble_text(path, uri)
     reassemble_text(path, uri)
-
