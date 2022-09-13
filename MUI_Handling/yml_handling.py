@@ -17,7 +17,7 @@ def extract_yml_header_and_text(mui_file, mui_id, is_header):
         mui_yml_header = ''
         for line in iter(file):
             if MUI_HEADER_PATTERN.match(line):
-                # Omit the #MUI#Header# line as it is only needed inside the MUI.EIS1600 file, but not in yml_data.yml
+                # Omit the #MUI#Header# line as it is only needed inside the MUI.EIS1600 file, but not in YMLDATA.yml
                 next(file)
                 line = next(file)
                 mui_yml_header = '#' + mui_id + '\n---\n'
