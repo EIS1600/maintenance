@@ -1,0 +1,12 @@
+setup.py
+eis1600_tools/__init__.py
+eis1600_tools.egg-info/PKG-INFO
+eis1600_tools.egg-info/SOURCES.txt
+eis1600_tools.egg-info/dependency_links.txt
+eis1600_tools.egg-info/top_level.txt
+eis1600_tools/bin/disassemble_into_mui_files.py
+eis1600_tools/mui_handling/__init__.py
+eis1600_tools/mui_handling/disassembling.py
+eis1600_tools/mui_handling/re_patterns.py
+eis1600_tools/mui_handling/reassembling.py
+eis1600_tools/mui_handling/yml_handling.py
