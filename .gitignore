@@ -1,5 +1,5 @@
 
-./file_picker/data/*
+file_picker/data/
 
 .DS_Store
 *.kate-swp
