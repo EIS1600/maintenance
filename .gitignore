@@ -1,0 +1,6 @@
+
+./file_picker/data/*
+
+.DS_Store
+*.kate-swp
+file_picker.yml
