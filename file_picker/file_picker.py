@@ -103,14 +103,13 @@ def sampleMIUs(dictionary):
         if filterParameter in k:
             selection.append(k)
 
-    finalSelection = random.sample(selection, filesToOpen*5)
+    finalSelection = random.sample(selection, filesToOpen*3)
 
     return(finalSelection)
 
   
 dictionary = generateDicOfMIUs()
 finalSample = sampleMIUs(dictionary)
-
 
 ################################################################################################
 # OPEN MIUS from THE SELECTED SAMPLE ###########################################################
@@ -140,12 +139,13 @@ for f in finalSample:
                 # open on mac
                 lineToRun = "open -a %s %s" % (pathToKate, dictionary[f])
                 os.system(lineToRun)
-                pass
+                
             elif osVar == "linux":
                 # open on linux
                 pass
             elif osVar == "win":
                 # open on windows
+                # start path_to_app path_to_file
                 pass
             else:
                 print("Operating system is incorrect. Use: mac, lin, or win")

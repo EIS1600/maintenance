@@ -1,6 +1,7 @@
 #MIU#Header#
 
-reviewed    : False
+reviewed    : NOT REVIEWED
+reviewer    : MGR
 headings    : 
     - h1    : "- الطبقة السبعون 691 - 700 ه tab70"
     - h2    : "- (الوفيات)"
